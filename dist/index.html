@@ -4,18 +4,29 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&family=Saira&display=swap"
+      rel="stylesheet"
+    />
     <title>Document</title>
   </head>
   <body>
-    <div class="projects">
-      <h1 class="projects-header">projects</h1>
-      <button class="projects-add">add project</button>
-      <form action="#" class="project-form hidden">
-        <input type="text" id="name" />
-        <input type="text" id="description" />
-        <button class="save">save</button>
-      </form>
-      <ul class="projects-list"></ul>
+    <div class="container">
+      <h1>My Todo List</h1>
+      <div class="projects">
+        <h1 class="projects-header">Projects</h1>
+        <div class="projects-add">
+          <button class="projects-add-btn">Add Project</button>
+          <form action="#" class="project-form hidden">
+            <input type="text" id="name" placeholder="Name" />
+            <input type="text" id="description" placeholder="Description" />
+            <button class="save">Save</button>
+          </form>
+        </div>
+        <ul class="projects-list"></ul>
+      </div>
     </div>
     <script src="./main.js"></script>
   </body>

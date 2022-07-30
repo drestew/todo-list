@@ -1,4 +1,4 @@
-import './style.css'
+import './style.scss'
 import { Project } from "./project";
 import { getProject, getProjects, storeProject } from './storage';
 
@@ -28,6 +28,7 @@ const addToDOM = function (item) {
     const itemEl = document.createElement('li')
     const itemName = document.createElement('h3')
 
+    itemEl.classList.add('projects-list__item')
     itemName.textContent = item.name
 
     projectList.appendChild(itemEl)

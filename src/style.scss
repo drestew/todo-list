@@ -1,0 +1,46 @@
+$color-primary: rgb(0,153,255);
+
+body {
+    background-color: $color-primary;
+    font-size: 62.5%;
+    font-family: 'Saira', sans-serif;
+}
+
+.projects {
+    background-color: aliceblue;
+    
+}
+
+.hidden {
+    display: none
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+}
+
+.projects {
+    display: flex;
+    flex-direction: column;
+    grid-column: 1 / 2;
+
+    h1 {
+        text-align: center;
+    }
+}
+
+.projects-add {
+    // width: 30%;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+
+    * {
+        margin: 0.1rem 0; 
+    }
+}
+
+.projects-list {
+    list-style: none;
+}
