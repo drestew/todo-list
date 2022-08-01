@@ -1,6 +1,6 @@
 import './style.scss'
 import { Project } from "./project";
-import { getProject, getProjects, storeProject } from './storage';
+import { getProjects, storeProject } from './storage';
 
 const projectBtn = document.querySelector('.projects-add')
 const projectForm = document.querySelector('.project-form')
@@ -27,12 +27,26 @@ const addToDOM = function (item) {
     const projectList = document.querySelector('.projects-list')
     const itemEl = document.createElement('li')
     const itemName = document.createElement('h3')
+    const iconContainer = document.createElement('div')
+    const editItem = document.createElement('span')
+    const deleteItem = document.createElement('span')
 
     itemEl.classList.add('projects-list__item')
     itemName.textContent = item.name
 
+
+    editItem.dataset.icon = 'clarity:edit-line'
+    deleteItem.dataset.icon = 'fluent:delete-28-regular'
+
+    iconContainer.classList.add('icon-container')
+    editItem.classList.add('iconify')
+    deleteItem.classList.add('iconify')
+
     projectList.appendChild(itemEl)
     itemEl.appendChild(itemName)
+    itemEl.appendChild(iconContainer)
+    iconContainer.appendChild(editItem)
+    iconContainer.appendChild(deleteItem)
 
     return item
 }
