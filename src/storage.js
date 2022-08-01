@@ -12,4 +12,16 @@ const storeProject = function (project) {
     }
 }
 
-export { storeProject, getProjects }
+const removeProject = function (projectName) {
+    const curProjects = JSON.parse(localStorage.getItem('projects'))
+
+    curProjects.projectArr.forEach((item, i) => {
+        if (item.name === projectName) {
+            curProjects.projectArr.splice(curProjects.projectArr.indexOf(item), 1)
+        }
+    })
+    console.log(curProjects)
+    localStorage.setItem('projects', JSON.stringify(curProjects))
+}
+
+export { storeProject, getProjects, removeProject }
