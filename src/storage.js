@@ -1,27 +1,27 @@
-const getProjects = function (projectArr) {
-    return JSON.parse(localStorage.getItem(projectArr))
+const getTasks = function (taskArr) {
+    return JSON.parse(localStorage.getItem(taskArr))
 }
 
-const storeProject = function (project) {
-    if (!localStorage.getItem('projects')) {
-        return localStorage.setItem('projects', JSON.stringify({ projectArr: [] }))
+const storeTask = function (task) {
+    if (!localStorage.getItem('tasks')) {
+        return localStorage.setItem('tasks', JSON.stringify({ taskArr: [] }))
     } else {
-        const curProjects = JSON.parse(localStorage.getItem('projects'))
-        curProjects.projectArr.push(project)
-        return localStorage.setItem('projects', JSON.stringify(curProjects))
+        const curTasks = JSON.parse(localStorage.getItem('tasks'))
+        curTasks.taskArr.push(task)
+        return localStorage.setItem('tasks', JSON.stringify(curTasks))
     }
 }
 
-const removeProject = function (projectName) {
-    const curProjects = JSON.parse(localStorage.getItem('projects'))
+const removeTask = function (taskName) {
+    const curTasks = JSON.parse(localStorage.getItem('tasks'))
 
-    curProjects.projectArr.forEach((item, i) => {
-        if (item.name === projectName) {
-            curProjects.projectArr.splice(curProjects.projectArr.indexOf(item), 1)
+    curTasks.taskArr.forEach((item, i) => {
+        if (item.name === taskName) {
+            curTasks.taskArr.splice(curTasks.taskArr.indexOf(item), 1)
         }
     })
-    console.log(curProjects)
-    localStorage.setItem('projects', JSON.stringify(curProjects))
+    console.log(curTasks)
+    localStorage.setItem('tasks', JSON.stringify(curTasks))
 }
 
-export { storeProject, getProjects, removeProject }
+export { storetask, gettasks, removetask }
