@@ -1,6 +1,71 @@
 import './style.scss'
 import { Task } from "./task";
 
+const projectInput = document.querySelector('#new-project-input')
+const taskInput = document.querySelector('#new-task-input')
+const addProjectIcon = document.querySelector('.add-project-icon')
+const addTaskIcon = document.querySelector('.add-task-icon')
+let newItem
+let completeItem
+let newTask
+
+addProjectIcon.addEventListener('click', function () {
+    const newProject = projectInput.value
+    const newDOMItem = document.createElement('li')
+    const newDOMItemLink = document.createElement('a')
+    const projectList = document.querySelector('.project-list')
+
+    newDOMItem.classList.add('list-item')
+    projectList.appendChild(newDOMItem)
+    newDOMItemLink.textContent = newProject
+    newDOMItemLink.setAttribute('href', '#')
+    newDOMItem.appendChild(newDOMItemLink)
+    resetInput()
+})
+
+addTaskIcon.addEventListener('click', function () {
+    newTask = new Task(taskInput.value)
+    const newDOMItem = document.createElement('li')
+    const newDOMItemLink = document.createElement('a')
+    const taskList = document.querySelector('.task-list')
+    const completeTask = document.createElement('span')
+    const completeTaskIcon = document.createElement('div')
+
+    completeTask.classList.add('iconify')
+    completeTask.dataset.icon = 'carbon:checkmark-outline'
+
+    newDOMItem.classList.add('list-item')
+    taskList.appendChild(newDOMItem)
+    newDOMItemLink.textContent = newTask.name
+    newDOMItemLink.setAttribute('href', '#')
+    newDOMItem.appendChild(newDOMItemLink)
+    completeTaskIcon.appendChild(completeTask)
+    newDOMItem.appendChild(completeTaskIcon)
+    completeItem = completeTaskIcon
+    newItem = newDOMItem
+    resetInput()
+    itemComplete()
+    editOrDelete()
+})
+
+const resetInput = function () {
+    projectInput.value = ''
+    taskInput.value = ''
+}
+
+const itemComplete = function () {
+    completeItem.addEventListener('click', function () {
+        const thisItem = this.parentElement
+        const itemParent = thisItem.parentElement
+        itemParent.removeChild(thisItem)
+    })
+}
+
+const editOrDelete = function () {
+    newItem.addEventListener('click', function () {
+        console.log(newTask)
+    })
+}
 // function addToDOM(item) {
 //     const taskList = document.querySelector('.tasks-list')
 //     const itemEl = document.createElement('li')

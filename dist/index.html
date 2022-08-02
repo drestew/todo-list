@@ -15,18 +15,24 @@
   <body>
     <div class="container">
       <h1 id="container-title">My Todo List</h1>
-      <div class="item-list">
-        <h2>Projects</h2>
+      <div class="projects">
+        <h2 class="projects-header">Projects</h2>
+        <ul class="project-list"></ul>
         <div class="new-item">
-          <input type="text" placeholder="New Project" id="new-item-input" />
-          <span class="iconify add-item-icon" data-icon="carbon:add-alt"></span>
+          <input type="text" placeholder="New Project" id="new-project-input" />
+          <div class="add-project-icon">
+            <span class="iconify" data-icon="carbon:add-alt"></span>
+          </div>
         </div>
       </div>
       <div class="tasks">
         <h2 class="tasks-header">Tasks</h2>
+        <ul class="task-list"></ul>
         <div class="new-item">
-          <input type="text" placeholder="New Task" id="new-item-input" />
-          <span class="iconify add-item-icon" data-icon="carbon:add-alt"></span>
+          <input type="text" placeholder="New Task" id="new-task-input" />
+          <div class="add-task-icon">
+            <span class="iconify" data-icon="carbon:add-alt"></span>
+          </div>
         </div>
       </div>
     </div>
