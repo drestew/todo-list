@@ -24,28 +24,9 @@ addProjectIcon.addEventListener('click', function () {
 })
 
 addTaskIcon.addEventListener('click', function () {
-    newTask = new Task(taskInput.value)
-    const newDOMItem = document.createElement('li')
-    const newDOMItemLink = document.createElement('a')
+    const task = document.createElement('task-item')
     const taskList = document.querySelector('.task-list')
-    const completeTask = document.createElement('span')
-    const completeTaskIcon = document.createElement('div')
-
-    completeTask.classList.add('iconify')
-    completeTask.dataset.icon = 'carbon:checkmark-outline'
-
-    newDOMItem.classList.add('list-item')
-    taskList.appendChild(newDOMItem)
-    newDOMItemLink.textContent = newTask.name
-    newDOMItemLink.setAttribute('href', '#')
-    newDOMItem.appendChild(newDOMItemLink)
-    completeTaskIcon.appendChild(completeTask)
-    newDOMItem.appendChild(completeTaskIcon)
-    completeItem = completeTaskIcon
-    newItem = newDOMItem
-    resetInput()
-    itemComplete()
-    editOrDelete()
+    taskList.appendChild(task)
 })
 
 const resetInput = function () {
@@ -66,6 +47,54 @@ const editOrDelete = function () {
         console.log(newTask)
     })
 }
+customElements.define("task-item",
+    class Todo extends HTMLElement {
+
+        static get observedAttributes() {
+            return ['status'];
+        }
+
+        constructor(type) {
+            super();
+
+            const shadow = this.attachShadow({ mode: "open" });
+
+            const taskName = document.querySelector('#new-task-input').value
+            const newDOMItem = document.createElement('li')
+            const newDOMItemLink = document.createElement('span')
+            const taskList = document.querySelector('.task-list')
+            const completeTask = document.createElement('span')
+            const completeTaskIcon = document.createElement('div')
+
+            completeTask.classList.add('iconify')
+            completeTask.dataset.icon = 'carbon:checkmark-outline'
+
+            newDOMItem.classList.add('list-item')
+            taskList.appendChild(newDOMItem)
+            const newTask = new Task(taskName)
+            newDOMItemLink.textContent = newTask.name
+            newDOMItemLink.setAttribute('status', 'open')
+            newDOMItem.appendChild(newDOMItemLink)
+            completeTaskIcon.appendChild(completeTask)
+            newDOMItem.appendChild(completeTaskIcon)
+            completeItem = completeTaskIcon
+            newItem = newDOMItem
+            // resetInput()
+            // itemComplete()
+            // editOrDelete()
+            shadow.appendChild(newDOMItem)
+        }
+
+        connectedCallback() {
+            console.log('we did it!', this)
+            this.classList.add('list-item')
+
+            resetInput()
+        }
+    }
+
+)
+
 // function addToDOM(item) {
 //     const taskList = document.querySelector('.tasks-list')
 //     const itemEl = document.createElement('li')

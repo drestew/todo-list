@@ -61,7 +61,7 @@ body {
     align-items: center;
 }
 
-ul {
+.task-list {
     list-style: none;
     padding: 0;
 
@@ -78,5 +78,9 @@ ul {
 
     &:hover {
         background-color: lightgray;
+    }
+
+    a {
+        text-decoration: none;
     }
 }
