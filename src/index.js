@@ -9,30 +9,11 @@ let newItem
 let completeItem
 let newTask
 
-addProjectIcon.addEventListener('click', function () {
-    const newProject = projectInput.value
-    const newDOMItem = document.createElement('li')
-    const newDOMItemLink = document.createElement('a')
-    const projectList = document.querySelector('.project-list')
-
-    newDOMItem.classList.add('list-item')
-    projectList.appendChild(newDOMItem)
-    newDOMItemLink.textContent = newProject
-    newDOMItemLink.setAttribute('href', '#')
-    newDOMItem.appendChild(newDOMItemLink)
-    resetInput()
-})
-
 addTaskIcon.addEventListener('click', function () {
     const task = document.createElement('task-item')
     const taskList = document.querySelector('.task-list')
     taskList.appendChild(task)
 })
-
-const resetInput = function () {
-    projectInput.value = ''
-    taskInput.value = ''
-}
 
 const itemComplete = function () {
     completeItem.addEventListener('click', function () {
@@ -51,7 +32,7 @@ customElements.define("task-item",
     class Todo extends HTMLElement {
 
         static get observedAttributes() {
-            return ['status'];
+            return ['status', 'type'];
         }
 
         constructor(type) {
@@ -63,33 +44,34 @@ customElements.define("task-item",
             const newDOMItem = document.createElement('li')
             const newDOMItemLink = document.createElement('span')
             const taskList = document.querySelector('.task-list')
-            const completeTask = document.createElement('span')
-            const completeTaskIcon = document.createElement('div')
+            const completeTask = document.createElement('div')
 
-            completeTask.classList.add('iconify')
-            completeTask.dataset.icon = 'carbon:checkmark-outline'
+            completeTask.classList.add('complete-icon')
+            completeTask.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img"' +
+                'width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><circle cx="12"' +
+                'cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/></svg>'
 
-            newDOMItem.classList.add('list-item')
             taskList.appendChild(newDOMItem)
             const newTask = new Task(taskName)
             newDOMItemLink.textContent = newTask.name
             newDOMItemLink.setAttribute('status', 'open')
             newDOMItem.appendChild(newDOMItemLink)
-            completeTaskIcon.appendChild(completeTask)
-            newDOMItem.appendChild(completeTaskIcon)
-            completeItem = completeTaskIcon
-            newItem = newDOMItem
-            // resetInput()
-            // itemComplete()
-            // editOrDelete()
+            newDOMItem.appendChild(completeTask)
+
             shadow.appendChild(newDOMItem)
         }
 
         connectedCallback() {
-            console.log('we did it!', this)
             this.classList.add('list-item')
+            const taskItem = this.shadowRoot.querySelector('li')
+            taskInput.value = ''
+            this.addEventListener('click', function () {
+                this.parentNode.removeChild(this)
+            })
+        }
 
-            resetInput()
+        attributeChangedCallback() {
+
         }
     }
 
