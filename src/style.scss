@@ -88,3 +88,12 @@ body {
 .list-item-task {
     display: flex;
 }
+
+.menu-container {
+    position: relative
+}
+
+.modify-item {
+    display:flex;
+    flex-direction: column;
+}

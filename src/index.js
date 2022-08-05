@@ -63,11 +63,8 @@ customElements.define("task-item",
 
         connectedCallback() {
             this.classList.add('list-item')
-            const taskItem = this.shadowRoot.querySelector('li')
             taskInput.value = ''
-            this.addEventListener('click', function () {
-                this.parentNode.removeChild(this)
-            })
+            menu.bind(this)()
         }
 
         attributeChangedCallback() {
@@ -77,6 +74,71 @@ customElements.define("task-item",
 
 )
 
+const menu = function () {
+    this.addEventListener('contextmenu', function (e) {
+        e.preventDefault()
+        this.style.position = 'relative'
+        const taskItem = this.shadowRoot.querySelector('li')
+        const menu = document.createElement('div')
+        const delItem = document.createElement('button')
+        delItem.textContent = 'Delete'
+        delItem.classList.add('menu-del-item')
+
+        menu.appendChild(delItem)
+        menu.classList.add('modify-item')
+
+        const rect = e.target.getBoundingClientRect()
+        const x = e.clientX - rect.left
+        const y = e.clientY - rect.top
+
+        const menuStyle = document.createElement('style')
+        menuStyle.textContent = `
+            .modify-item {
+                position: absolute;
+                top: ${y}px;
+                left: ${x}px;
+                background-color: white;
+                border-radius: 0.5rem;
+                padding: 0.5rem;
+                border: solid 1px black;
+            }
+            
+            .menu-del-item {
+                color: red;
+                padding: 0.2rem;
+                margin: 0.1rem;
+                background-color: white;
+                border: none;
+            }`
+
+        menu.appendChild(menuStyle)
+
+        taskItem.parentNode.appendChild(menu)
+    })
+}
+
+// const delTask = function () {
+//     const delBtn = document.shadowRoot.querySelector('.menu-del-item')
+//     delBtn.addEventListener('click', function (e) {
+//         document.addEventListener('click'), function (e) {
+//             console.log(e.target)
+//         }
+//         console.log(this.parentNode)
+//     })
+// }
+const taskList = document.querySelector('.task-list')
+taskList.addEventListener('contextmenu', function (e) {
+    e.preventDefault()
+    const taskListItems = taskList.children
+    for (let i = 0; i < taskListItems.length; i++) {
+        const shadow = taskListItems[i].shadowRoot
+        const shadowItem = shadow.childNodes[1]
+        shadowItem.addEventListener('click', function () {
+            console.log('deleted!')
+        })
+    }
+    // console.log(e.target.classList.contains('menu-del-item'))
+})
 // function addToDOM(item) {
 //     const taskList = document.querySelector('.tasks-list')
 //     const itemEl = document.createElement('li')
