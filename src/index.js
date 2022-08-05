@@ -129,16 +129,26 @@ const menu = function () {
 const taskList = document.querySelector('.task-list')
 taskList.addEventListener('contextmenu', function (e) {
     e.preventDefault()
-    const taskListItems = taskList.children
-    for (let i = 0; i < taskListItems.length; i++) {
-        const shadow = taskListItems[i].shadowRoot
-        const shadowItem = shadow.childNodes[1]
-        shadowItem.addEventListener('click', function () {
-            console.log('deleted!')
+    const taskListItems = document.querySelectorAll('.list-item')
+    taskListItems.forEach(item => {
+        item.addEventListener('click', function (e) {
+            const delBtn = item.shadowRoot.querySelector('.modify-item') || null
+            console.log(delBtn)
+            if (delBtn) { item.parentNode.removeChild(item) }
         })
-    }
+    })
+    // for (let i = 0; i < taskListItems.length; i++) {
+    //     const shadow = taskListItems[i].shadowRoot
+    //     const shadowItem = shadow.childNodes[1]
+    //     shadowItem.addEventListener('click', function () {
+    //         console.log('deleted!')
+
+    //     })
+    // }
     // console.log(e.target.classList.contains('menu-del-item'))
 })
+
+
 // function addToDOM(item) {
 //     const taskList = document.querySelector('.tasks-list')
 //     const itemEl = document.createElement('li')
