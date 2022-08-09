@@ -23,11 +23,6 @@ const itemComplete = function () {
     })
 }
 
-const editOrDelete = function () {
-    newItem.addEventListener('click', function () {
-        console.log(newTask)
-    })
-}
 customElements.define("task-item",
     class Todo extends HTMLElement {
 
@@ -46,25 +41,45 @@ customElements.define("task-item",
             const taskList = document.querySelector('.task-list')
             const completeTask = document.createElement('div')
 
+
             completeTask.classList.add('complete-icon')
             completeTask.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img"' +
-                'width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><circle cx="12"' +
-                'cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/></svg>'
+                'width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><circle cx="12"' +
+                'cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1"/></svg>'
 
             taskList.appendChild(newDOMItem)
             const newTask = new Task(taskName)
             newDOMItemLink.textContent = newTask.name
             newDOMItemLink.setAttribute('status', 'open')
-            newDOMItem.appendChild(newDOMItemLink)
             newDOMItem.appendChild(completeTask)
+            newDOMItem.appendChild(newDOMItemLink)
 
+
+            newDOMItem.classList.add('task-item')
+            const taskStyle = document.createElement('style')
+            taskStyle.textContent = `
+                .task-item {
+                    display: flex;
+                    grid-gap: 1rem;
+                    align-items: center;
+                    font-size: 1.2rem;
+                    cursor: default;
+                }
+
+                .complete-icon {
+                    display: flex;
+                }
+            `
+            newDOMItem.appendChild(taskStyle)
             shadow.appendChild(newDOMItem)
+            console.log(newDOMItem)
         }
 
         connectedCallback() {
             this.classList.add('list-item')
             taskInput.value = ''
             menu.bind(this)()
+            sidebar.bind(this)()
         }
 
         attributeChangedCallback() {
@@ -73,6 +88,19 @@ customElements.define("task-item",
     }
 
 )
+
+const sidebar = function () {
+    this.addEventListener('click', function () {
+        console.log(this)
+        const container = document.querySelector('.container')
+        const sidebar = document.createElement('sidebar-menu')
+        container.appendChild(sidebar)
+        const taskNameEl = document.querySelector('sidebar-menu').shadowRoot.querySelector('h2')
+        const taskNameContent = this.shadowRoot.querySelector('span').textContent
+        taskNameEl.textContent = taskNameContent
+    }
+    )
+}
 
 const menu = function () {
     this.addEventListener('contextmenu', function (e) {
@@ -131,3 +159,41 @@ const delTask = function () {
 }
 
 
+customElements.define("sidebar-menu",
+    class Sidebar extends HTMLElement {
+        constructor(name, project) {
+            super()
+            this.name = name
+            this.project = project
+
+            const container = document.querySelector('.container')
+            const shadow = this.attachShadow({ mode: "open" });
+
+            const menu = document.createElement('div')
+            const taskName = document.createElement('h2')
+            const projectName = document.createElement('span')
+            const sidebarStyle = document.createElement('style')
+
+            sidebarStyle.textContent = `
+                .sidebar {
+                    height: 100vh;
+                    width: 20vw;
+                    position: fixed;
+                    top: 0;
+                    overflow: hidden;
+                    background-color: white;
+                    right: 0;   
+                }
+            `
+
+            menu.classList.add('sidebar')
+
+            menu.appendChild(taskName)
+            menu.appendChild(projectName)
+            menu.appendChild(sidebarStyle)
+            shadow.appendChild(menu)
+
+        }
+
+
+    })
