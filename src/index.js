@@ -1,6 +1,6 @@
 import './style.scss'
 import { Task } from "./task";
-import { Todo, menu, Sidebar } from './elements';
+import { Todo, Sidebar } from './elements';
 
 const projectInput = document.querySelector('#new-project-input')
 const addProjectIcon = document.querySelector('.add-project-icon')

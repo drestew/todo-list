@@ -97,3 +97,27 @@ body {
     display:flex;
     flex-direction: column;
 }
+
+.sidebar {
+    height: 100vh;
+    width: 20vw;
+    position: fixed;
+    top: 0;
+    overflow: hidden;
+    background-color: white;
+    right: 0;   
+}
+
+.task-item {
+    display: flex;
+    grid-gap: 1rem;
+    align-items: center;
+    font-size: 1.2rem;
+    cursor: default;
+}
+
+.complete-icon {
+    height: 2rem;
+    width: 2rem;
+    background: url('https://api.iconify.design/akar-icons/circle.svg?width=30&height=30') no-repeat center center / contain;
+}
