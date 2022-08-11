@@ -98,6 +98,14 @@ body {
     flex-direction: column;
 }
 
+.menu-del-item {
+    color: red;
+    padding: 0.2rem;
+    margin: 0.1rem;
+    background-color: white;
+    border: none;
+}
+
 .sidebar {
     height: 100vh;
     width: 20vw;
@@ -105,7 +113,13 @@ body {
     top: 0;
     overflow: hidden;
     background-color: white;
-    right: 0;   
+    right: 0; 
+    padding: 2rem;
+    transition: margin-right 1.2s all;
+    
+    h2 {
+        font-size: 2rem;
+    }
 }
 
 .task-item {
@@ -120,4 +134,16 @@ body {
     height: 2rem;
     width: 2rem;
     background: url('https://api.iconify.design/akar-icons/circle.svg?width=30&height=30') no-repeat center center / contain;
+}
+
+.completed {
+    color: gray;
+    text-decoration: line-through;
+}
+
+.close-sidebar {
+    height: 2rem;
+    width: 2rem;
+    background-color: black;
+    background: url('https://api.iconify.design/ant-design/close-circle-outlined.svg') no-repeat center center / contain;
 }

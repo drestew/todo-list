@@ -1,10 +1,19 @@
 import { Sidebar } from "./elements"
 
 const taskContextMenu = function () {
-    this.addEventListener('contextmenu', function () {
+    this.addEventListener('contextmenu', function (e) {
         e.preventDefault()
         this.style.position = 'relative'
         const taskItem = this.shadowRoot.querySelector('li')
+
+        const delBtns = this.shadowRoot.querySelectorAll('.modify-item')
+        if (delBtns.length > 0) {
+            const shadow = this.shadowRoot.querySelector('.modify-item').parentNode
+            for (let i = 0; i < delBtns.length; i++) {
+                shadow.removeChild(shadow.querySelector('.modify-item'))
+            }
+        }
+
         const menu = document.createElement('div')
         const delItem = document.createElement('button')
         delItem.textContent = 'Delete'
@@ -28,25 +37,16 @@ const taskContextMenu = function () {
                 padding: 0.5rem;
                 border: solid 1px black;
                 display: hidden;
-            }
-            
-            .menu-del-item {
-                color: red;
-                padding: 0.2rem;
-                margin: 0.1rem;
-                background-color: white;
-                border: none;
             }`
 
         menu.appendChild(menuStyle)
         taskItem.parentNode.appendChild(menu)
-        delTask()
+        // delTask()
     })
 }
 
 const taskSidebarMenu = function () {
     this.addEventListener('click', function () {
-        console.log(this)
         const container = document.querySelector('.container')
         customElements.define('sidebar-menu', Sidebar)
         const sidebar = document.createElement('sidebar-menu')
@@ -58,4 +58,14 @@ const taskSidebarMenu = function () {
     )
 }
 
-export { taskContextMenu, taskSidebarMenu }
+const closeSidebar = function () {
+    const container = document.querySelector('.container')
+    const sidebar = document.querySelector('.sidebar')
+    const close = sidebar.shadowRoot.querySelector('.close-sidebar')
+    close.addEventListener('click', function () {
+        const sidebar = document.querySelector('.sidebar')
+        container.removeChild(sidebar)
+    })
+}
+
+export { taskContextMenu, taskSidebarMenu, closeSidebar }

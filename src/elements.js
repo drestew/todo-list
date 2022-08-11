@@ -1,5 +1,5 @@
 import { Task } from "./task";
-import { taskContextMenu, taskSidebarMenu } from "./taskMenu"
+import { taskContextMenu, taskSidebarMenu, closeSidebar } from "./taskMenu"
 
 class Todo extends HTMLElement {
     constructor() {
@@ -16,8 +16,7 @@ class Todo extends HTMLElement {
         completeTask.classList.add('complete-icon')
 
         taskList.appendChild(newDOMItem)
-        const newTask = new Task(taskName)
-        newDOMItemLink.textContent = newTask.name
+        newDOMItemLink.textContent = taskName
         newDOMItemLink.setAttribute('status', 'open')
         newDOMItem.appendChild(completeTask)
         newDOMItem.appendChild(newDOMItemLink)
@@ -30,6 +29,8 @@ class Todo extends HTMLElement {
 
         shadow.appendChild(styleLink)
         shadow.appendChild(newDOMItem)
+
+        const newTask = new Task(taskName)
     }
 
     connectedCallback() {
@@ -50,14 +51,23 @@ class Sidebar extends HTMLElement {
         const menu = document.createElement('div')
         const taskName = document.createElement('h2')
         const projectName = document.createElement('span')
+        const close = document.createElement('div')
+        close.classList.add('close-sidebar')
+
+        const styleLink = document.createElement('link')
+        styleLink.setAttribute('rel', 'stylesheet')
+        styleLink.setAttribute('href', '../dist/main.css')
 
         menu.appendChild(taskName)
         menu.appendChild(projectName)
+        menu.appendChild(close)
+        shadow.appendChild(styleLink)
         shadow.appendChild(menu)
     }
 
     connectedCallback() {
         this.classList.add('sidebar')
+        closeSidebar()
     }
 }
 
