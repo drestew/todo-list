@@ -1,6 +1,7 @@
 import './style.scss'
 import { Task } from "./task";
-import { Todo, Sidebar } from './elements';
+import { Todo } from './elements';
+import { closeSidebar } from './taskMenu';
 
 const projectInput = document.querySelector('#new-project-input')
 const addProjectIcon = document.querySelector('.add-project-icon')
@@ -10,7 +11,7 @@ let completeItem
 let newTask
 
 addTaskIcon.addEventListener('click', function () {
-    customElements.define("task-item", Todo)
+    customElements.get('task-item') || customElements.define("task-item", Todo)
     const task = document.createElement('task-item')
     const taskList = document.querySelector('.task-list')
     taskList.appendChild(task)
@@ -31,7 +32,12 @@ const delTask = function () {
         if (delBtn !== null) {
             delBtn.addEventListener('click', function () {
                 item.parentNode.removeChild(item)
+                const sidebar = document.querySelector('.sidebar')
+                sidebar.classList.add('hidden')
             })
         }
     })
 }
+
+
+export { delTask }

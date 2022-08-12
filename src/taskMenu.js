@@ -1,4 +1,4 @@
-import { Sidebar } from "./elements"
+import { delTask } from "./index.js"
 
 const taskContextMenu = function () {
     this.addEventListener('contextmenu', function (e) {
@@ -41,31 +41,25 @@ const taskContextMenu = function () {
 
         menu.appendChild(menuStyle)
         taskItem.parentNode.appendChild(menu)
-        // delTask()
+        delTask()
     })
 }
 
 const taskSidebarMenu = function () {
-    this.addEventListener('click', function () {
-        const container = document.querySelector('.container')
-        customElements.define('sidebar-menu', Sidebar)
-        const sidebar = document.createElement('sidebar-menu')
-        container.appendChild(sidebar)
-        const taskNameEl = document.querySelector('sidebar-menu').shadowRoot.querySelector('h2')
-        const taskNameContent = this.shadowRoot.querySelector('span').textContent
-        taskNameEl.textContent = taskNameContent
-    }
-    )
+    const sidebar = document.querySelector('.sidebar')
+
+    this.addEventListener('click', function (e) {
+        sidebar.classList.remove('hidden')
+        const taskName = sidebar.querySelector('.sidebar-header')
+        taskName.textContent = this.shadowRoot.querySelector('.task-item').textContent
+        const close = document.querySelector('.close-sidebar')
+        close.addEventListener('click', closeSidebar)
+    })
 }
 
 const closeSidebar = function () {
-    const container = document.querySelector('.container')
     const sidebar = document.querySelector('.sidebar')
-    const close = sidebar.shadowRoot.querySelector('.close-sidebar')
-    close.addEventListener('click', function () {
-        const sidebar = document.querySelector('.sidebar')
-        container.removeChild(sidebar)
-    })
+    sidebar.classList.add('hidden')
 }
 
 export { taskContextMenu, taskSidebarMenu, closeSidebar }
