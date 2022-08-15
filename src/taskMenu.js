@@ -1,4 +1,4 @@
-import { itemComplete, delTask } from "./index.js"
+import { delTask } from "./index.js"
 
 const taskContextMenu = function (item) {
     item.addEventListener('contextmenu', function (e) {

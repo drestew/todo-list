@@ -1,6 +1,6 @@
-import { itemComplete } from "./index";
+import { itemComplete, addProject } from "./index";
 import { Task } from "./task";
-import { taskContextMenu, taskSidebarMenu, closeSidebar } from "./taskMenu"
+import { taskContextMenu, taskSidebarMenu } from "./taskMenu"
 
 class Todo extends HTMLElement {
     constructor() {
@@ -44,4 +44,26 @@ class Todo extends HTMLElement {
     }
 }
 
-export { Todo }
+class Project extends Todo {
+    constructor() {
+        super()
+
+        const thisItem = this.shadowRoot
+        const projectName = document.querySelector('#new-project-input').value
+        const newDOMItemLink = thisItem.querySelector('span')
+        newDOMItemLink.textContent = projectName
+        const completeIcon = thisItem.querySelector('.complete-icon')
+        completeIcon.parentNode.removeChild(completeIcon)
+
+    }
+
+    connectedCallback() {
+        this.classList.add('list-item')
+        const projectInput = document.querySelector('#new-project-input')
+        projectInput.value = ''
+
+        addProject(this)
+    }
+}
+
+export { Todo, Project }
