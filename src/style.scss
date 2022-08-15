@@ -1,4 +1,6 @@
 $color-primary: rgb(0,153,255);
+$incomplete-task: url('https://api.iconify.design/akar-icons/circle.svg?width=30&height=30') no-repeat center center / contain;
+$complete-task: url('https://api.iconify.design/eva/checkmark-circle-2-fill.svg?color=%2309af00&width=30&height=30') no-repeat center center / contain;
 
 body {
     background-color: $color-primary;
@@ -133,7 +135,11 @@ body {
 .complete-icon {
     height: 2rem;
     width: 2rem;
-    background: url('https://api.iconify.design/akar-icons/circle.svg?width=30&height=30') no-repeat center center / contain;
+    background: $incomplete-task;
+}
+
+.checkmark-icon {
+    background: $complete-task;
 }
 
 .completed {

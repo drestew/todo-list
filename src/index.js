@@ -17,11 +17,12 @@ addTaskIcon.addEventListener('click', function () {
     taskList.appendChild(task)
 })
 
-const itemComplete = function () {
-    completeItem.addEventListener('click', function () {
-        const thisItem = this.parentElement
-        const itemParent = thisItem.parentElement
-        itemParent.removeChild(thisItem)
+const itemComplete = function (item) {
+    const completeIcon = item.shadowRoot.querySelector('.complete-icon')
+    completeIcon.addEventListener('click', function (e) {
+        e.stopPropagation()
+        item.classList.toggle('completed')
+        this.classList.toggle('checkmark-icon')
     })
 }
 
@@ -40,4 +41,4 @@ const delTask = function () {
 }
 
 
-export { delTask }
+export { itemComplete, delTask }

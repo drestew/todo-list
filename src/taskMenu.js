@@ -1,14 +1,14 @@
-import { delTask } from "./index.js"
+import { itemComplete, delTask } from "./index.js"
 
-const taskContextMenu = function () {
-    this.addEventListener('contextmenu', function (e) {
+const taskContextMenu = function (item) {
+    item.addEventListener('contextmenu', function (e) {
         e.preventDefault()
-        this.style.position = 'relative'
-        const taskItem = this.shadowRoot.querySelector('li')
+        item.style.position = 'relative'
+        const taskItem = item.shadowRoot.querySelector('li')
 
-        const delBtns = this.shadowRoot.querySelectorAll('.modify-item')
+        const delBtns = item.shadowRoot.querySelectorAll('.modify-item')
         if (delBtns.length > 0) {
-            const shadow = this.shadowRoot.querySelector('.modify-item').parentNode
+            const shadow = item.shadowRoot.querySelector('.modify-item').parentNode
             for (let i = 0; i < delBtns.length; i++) {
                 shadow.removeChild(shadow.querySelector('.modify-item'))
             }
@@ -45,13 +45,13 @@ const taskContextMenu = function () {
     })
 }
 
-const taskSidebarMenu = function () {
+const taskSidebarMenu = function (item) {
     const sidebar = document.querySelector('.sidebar')
 
-    this.addEventListener('click', function (e) {
+    item.addEventListener('click', function (e) {
         sidebar.classList.remove('hidden')
         const taskName = sidebar.querySelector('.sidebar-header')
-        taskName.textContent = this.shadowRoot.querySelector('.task-item').textContent
+        taskName.textContent = item.shadowRoot.querySelector('.task-item').textContent
         const close = document.querySelector('.close-sidebar')
         close.addEventListener('click', closeSidebar)
     })
